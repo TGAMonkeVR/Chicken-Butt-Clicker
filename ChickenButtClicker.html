@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EPIC CHICKEN BUTT CLICKER - BY TGA MONKE VR</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial Black', Arial, sans-serif;
+            overflow-x: hidden;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* EXTREME Epileptic Background Animations */
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            animation: backgroundChaos 0.05s infinite;
+        }
+
+        @keyframes backgroundChaos {
+            0% { 
+                background: radial-gradient(circle, #ff0000 0%, #00ff00 25%, #0000ff 50%, #ffff00 75%, #ff00ff 100%);
+                transform: scale(1) rotate(0deg);
+                filter: hue-rotate(0deg) saturate(2) brightness(1.5);
+            }
+            25% { 
+                background: radial-gradient(circle, #00ffff 0%, #ff0000 25%, #ffff00 50%, #ff00ff 75%, #00ff00 100%);
+                transform: scale(1.2) rotate(180deg);
+                filter: hue-rotate(60deg) saturate(3) brightness(2);
+            }
+            50% { 
+                background: radial-gradient(circle, #ff00ff 0%, #ffff00 25%, #00ffff 50%, #ff0000 75%, #0000ff 100%);
+                transform: scale(0.8) rotate(-180deg);
+                filter: hue-rotate(120deg) saturate(2.5) brightness(1.8);
+            }
+            75% { 
+                background: conic-gradient(from 0deg, #ff0000, #ff8000, #ffff00, #80ff00, #00ff00, #00ff80, #00ffff, #0080ff, #0000ff, #8000ff, #ff00ff, #ff0080);
+                transform: scale(1.3) rotate(90deg);
+                filter: hue-rotate(180deg) saturate(3.5) brightness(2.2);
+            }
+            100% { 
+                background: radial-gradient(circle, #ff0000 0%, #00ff00 25%, #0000ff 50%, #ffff00 75%, #ff00ff 100%);
+                transform: scale(0.7) rotate(-90deg);
+                filter: hue-rotate(300deg) saturate(4) brightness(2.5);
+            }
+        }
+
+        .strobe-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+            animation: strobeOverlay 0.03s infinite;
+        }
+
+        @keyframes strobeOverlay {
+            0% { background-color: rgba(255,0,0,0.8); opacity: 1; transform: scale(1); }
+            12.5% { background-color: rgba(0,255,0,0.8); opacity: 0; transform: scale(1.5); }
+            25% { background-color: rgba(0,0,255,0.8); opacity: 1; transform: scale(0.5); }
+            37.5% { background-color: rgba(255,255,0,0.8); opacity: 0; transform: scale(1.2); }
+            50% { background-color: rgba(255,0,255,0.8); opacity: 1; transform: scale(0.8); }
+            62.5% { background-color: rgba(0,255,255,0.8); opacity: 0; transform: scale(1.3); }
+            75% { background-color: rgba(255,255,255,0.8); opacity: 1; transform: scale(0.6); }
+            87.5% { background-color: rgba(0,0,0,0.8); opacity: 0; transform: scale(1); }
+            100% { background-color: rgba(255,0,0,0.8); opacity: 1; transform: scale(1); }
+        }
+
+        .grid-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 3;
+            opacity: 0.6;
+            background-image: 
+                repeating-linear-gradient(0deg, transparent, transparent 5px, #fff 5px, #fff 10px),
+                repeating-linear-gradient(90deg, transparent, transparent 5px, #fff 5px, #fff 10px);
+            animation: gridVibration 0.02s infinite;
+        }
+
+        @keyframes gridVibration {
+            0% { opacity: 0; transform: scale(1) translate(0, 0); filter: invert(0) hue-rotate(0deg); }
+            14% { opacity: 1; transform: scale(1.5) translate(10px, -10px); filter: invert(1) hue-rotate(60deg); }
+            28% { opacity: 0; transform: scale(0.5) translate(-10px, 10px); filter: invert(0) hue-rotate(120deg); }
+            42% { opacity: 0.8; transform: scale(1.3) translate(5px, -5px); filter: invert(1) hue-rotate(180deg); }
+            56% { opacity: 0; transform: scale(0.7) translate(-5px, 5px); filter: invert(0) hue-rotate(240deg); }
+            70% { opacity: 1; transform: scale(1.2) translate(8px, -8px); filter: invert(1) hue-rotate(300deg); }
+            84% { opacity: 0; transform: scale(1) translate(0, 0); filter: invert(0) hue-rotate(360deg); }
+            100% { opacity: 0; transform: scale(1) translate(0, 0); filter: invert(0) hue-rotate(0deg); }
+        }
+
+        .floating-emoji {
+            position: fixed;
+            font-size: 4rem;
+            z-index: 20;
+            pointer-events: none;
+            animation: floatingChaos 0.5s infinite alternate;
+        }
+
+        @keyframes floatingChaos {
+            0% { 
+                transform: rotate(0deg) scale(1);
+                filter: hue-rotate(0deg) brightness(1) saturate(2);
+            }
+            16% { 
+                transform: rotate(60deg) scale(2);
+                filter: hue-rotate(60deg) brightness(2) saturate(3);
+            }
+            33% { 
+                transform: rotate(-60deg) scale(0.5);
+                filter: hue-rotate(120deg) brightness(1.5) saturate(2.5);
+            }
+            50% { 
+                transform: rotate(180deg) scale(1.8);
+                filter: hue-rotate(180deg) brightness(2.2) saturate(3.5);
+            }
+            66% { 
+                transform: rotate(-180deg) scale(0.3);
+                filter: hue-rotate(240deg) brightness(1.8) saturate(2.8);
+            }
+            83% { 
+                transform: rotate(720deg) scale(1.5);
+                filter: hue-rotate(300deg) brightness(2.5) saturate(4);
+            }
+            100% { 
+                transform: rotate(0deg) scale(1);
+                filter: hue-rotate(360deg) brightness(1) saturate(2);
+            }
+        }
+
+        .content {
+            position: relative;
+            z-index: 10;
+            padding: 1rem;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .header-icons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .icon {
+            font-size: 3rem;
+            animation: iconChaos 0.1s infinite;
+        }
+
+        @keyframes iconChaos {
+            0% { transform: rotate(0deg) scale(1); filter: hue-rotate(0deg); }
+            25% { transform: rotate(90deg) scale(1.5); filter: hue-rotate(90deg); }
+            50% { transform: rotate(180deg) scale(0.5); filter: hue-rotate(180deg); }
+            75% { transform: rotate(270deg) scale(1.2); filter: hue-rotate(270deg); }
+            100% { transform: rotate(360deg) scale(1); filter: hue-rotate(360deg); }
+        }
+
+        .main-title {
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 900;
+            color: #ff0000;
+            text-shadow: 
+                4px 4px 0px #000, 
+                8px 8px 0px #ff0000, 
+                12px 12px 0px #00ff00, 
+                16px 16px 0px #0000ff, 
+                20px 20px 0px #ffff00;
+            background: linear-gradient(45deg, #ff0000, #ff6600, #ffff00, #00ff00, #0000ff, #ff00ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            transform: skew(-12deg);
+            animation: titleChaos 0.03s infinite;
+        }
+
+        @keyframes titleChaos {
+            0% { 
+                transform: skew(-12deg) scale(1) rotate(0deg) translate(0, 0);
+                text-shadow: 4px 4px 0px #ff0000, 8px 8px 0px #00ff00;
+                filter: hue-rotate(0deg) brightness(1) saturate(2);
+            }
+            16% { 
+                transform: skew(-12deg) scale(1.5) rotate(10deg) translate(20px, -15px);
+                text-shadow: 4px 4px 0px #0000ff, 8px 8px 0px #ffff00;
+                filter: hue-rotate(60deg) brightness(2) saturate(3);
+            }
+            33% { 
+                transform: skew(-12deg) scale(0.7) rotate(-10deg) translate(-20px, 15px);
+                text-shadow: 4px 4px 0px #ff00ff, 8px 8px 0px #00ffff;
+                filter: hue-rotate(120deg) brightness(1.5) saturate(2.5);
+            }
+            50% { 
+                transform: skew(-12deg) scale(1.3) rotate(5deg) translate(10px, -8px);
+                text-shadow: 4px 4px 0px #ffffff, 8px 8px 0px #000000;
+                filter: hue-rotate(180deg) brightness(2.2) saturate(3.5);
+            }
+            66% { 
+                transform: skew(-12deg) scale(0.8) rotate(-5deg) translate(-10px, 8px);
+                text-shadow: 4px 4px 0px #ff0000, 8px 8px 0px #00ff00;
+                filter: hue-rotate(240deg) brightness(1.8) saturate(2.8);
+            }
+            83% { 
+                transform: skew(-12deg) scale(1.2) rotate(8deg) translate(15px, -12px);
+                text-shadow: 4px 4px 0px #0000ff, 8px 8px 0px #ffff00;
+                filter: hue-rotate(300deg) brightness(2.5) saturate(4);
+            }
+            100% { 
+                transform: skew(-12deg) scale(1) rotate(0deg) translate(0, 0);
+                text-shadow: 4px 4px 0px #ff0000, 8px 8px 0px #00ff00;
+                filter: hue-rotate(360deg) brightness(1) saturate(2);
+            }
+        }
+
+        .subtitle {
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            font-weight: bold;
+            color: #ff69b4;
+            margin-top: 1rem;
+            animation: subtitleChaos 0.04s infinite;
+        }
+
+        @keyframes subtitleChaos {
+            0% { 
+                transform: translate(0, 0) scale(1) rotate(0deg);
+                color: #ff69b4;
+            }
+            16% { 
+                transform: translate(0, -30px) scale(1.5) rotate(5deg);
+                color: #00ff00;
+            }
+            33% { 
+                transform: translate(0, 20px) scale(0.8) rotate(-5deg);
+                color: #ff0000;
+            }
+            50% { 
+                transform: translate(0, -25px) scale(1.3) rotate(3deg);
+                color: #ffff00;
+            }
+            66% { 
+                transform: translate(0, 15px) scale(0.9) rotate(-3deg);
+                color: #00ffff;
+            }
+            83% { 
+                transform: translate(0, -20px) scale(1.2) rotate(4deg);
+                color: #ff00ff;
+            }
+            100% { 
+                transform: translate(0, 0) scale(1) rotate(0deg);
+                color: #ff69b4;
+            }
+        }
+
+        .badges {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .badge {
+            background: #ff4500;
+            color: white;
+            padding: 0.5rem 1rem;
+            font-weight: 900;
+            font-size: 1.125rem;
+            border: 4px solid #ffd700;
+            animation: badgeChaos 0.1s infinite;
+        }
+
+        .badge:nth-child(1) { transform: rotate(12deg); background: #dc143c; }
+        .badge:nth-child(2) { transform: rotate(-6deg); background: #32cd32; }
+        .badge:nth-child(3) { transform: rotate(3deg); background: #4169e1; }
+        .badge:nth-child(4) { transform: rotate(-12deg); background: #9932cc; }
+
+        @keyframes badgeChaos {
+            0% { 
+                transform: rotate(var(--rotation, 0deg)) translate(0, 0) scale(1);
+                filter: hue-rotate(0deg) brightness(1);
+            }
+            20% { 
+                transform: rotate(var(--rotation, 0deg)) translate(0, -10px) scale(1.2);
+                filter: hue-rotate(120deg) brightness(1.5);
+            }
+            40% { 
+                transform: rotate(var(--rotation, 0deg)) translate(0, 5px) scale(0.9);
+                filter: hue-rotate(240deg) brightness(1.2);
+            }
+            60% { 
+                transform: rotate(var(--rotation, 0deg)) translate(0, -8px) scale(1.1);
+                filter: hue-rotate(0deg) brightness(1);
+            }
+            80% { 
+                transform: rotate(var(--rotation, 0deg)) translate(0, 3px) scale(0.95);
+                filter: hue-rotate(120deg) brightness(1.5);
+            }
+            100% { 
+                transform: rotate(var(--rotation, 0deg)) translate(0, 0) scale(1);
+                filter: hue-rotate(240deg) brightness(1.2);
+            }
+        }
+
+        .card {
+            background: linear-gradient(135deg, #4169e1, #9932cc);
+            border: 8px solid #ffd700;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            color: white;
+            animation: cardVibration 0.1s infinite;
+        }
+
+        @keyframes cardVibration {
+            0% { transform: rotate(1deg) scale(1); }
+            25% { transform: rotate(-1deg) scale(1.02); }
+            50% { transform: rotate(1.5deg) scale(0.99); }
+            75% { transform: rotate(-0.5deg) scale(1.01); }
+            100% { transform: rotate(1deg) scale(1); }
+        }
+
+        .ram-card {
+            background: linear-gradient(90deg, #32cd32, #4169e1);
+            border: 8px solid #dc143c;
+            transform: rotate(1deg);
+            max-width: 48rem;
+            margin: 0 auto 2rem auto;
+            animation: ramCardChaos 0.2s infinite;
+        }
+
+        @keyframes ramCardChaos {
+            0% { 
+                transform: rotate(1deg) scale(1);
+                filter: hue-rotate(0deg);
+            }
+            25% { 
+                transform: rotate(-1deg) scale(1.05);
+                filter: hue-rotate(90deg);
+            }
+            50% { 
+                transform: rotate(1.5deg) scale(0.98);
+                filter: hue-rotate(180deg);
+            }
+            75% { 
+                transform: rotate(-0.5deg) scale(1.02);
+                filter: hue-rotate(270deg);
+            }
+            100% { 
+                transform: rotate(1deg) scale(1);
+                filter: hue-rotate(360deg);
+            }
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 1rem;
+            background: #333;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            margin: 0.5rem 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #32cd32, #4169e1);
+            width: 0%;
+            transition: width 0.1s;
+            animation: progressGlow 0.1s infinite;
+        }
+
+        @keyframes progressGlow {
+            0% { filter: hue-rotate(0deg) brightness(1); }
+            50% { filter: hue-rotate(180deg) brightness(1.5); }
+            100% { filter: hue-rotate(360deg) brightness(1); }
+        }
+
+        .button {
+            background: #dc143c;
+            color: white;
+            border: 4px solid #ffd700;
+            padding: 1rem 2rem;
+            font-size: 1.25rem;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 0.5rem;
+            transition: all 0.2s;
+        }
+
+        .button:hover {
+            background: #b22222;
+            transform: scale(1.05);
+        }
+
+        .button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .clicker-button {
+            width: 16rem;
+            height: 16rem;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ff1493, #9932cc);
+            border: 8px solid #ffd700;
+            font-size: 4rem;
+            cursor: pointer;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 
+                0 0 30px #ff00ff, 
+                0 0 60px #00ffff, 
+                0 0 90px #ffff00, 
+                0 0 120px #ff0000;
+            animation: clickerChaos 0.02s infinite;
+        }
+
+        @keyframes clickerChaos {
+            0% { 
+                transform: scale(1) rotate(0deg);
+                filter: hue-rotate(0deg) brightness(1) saturate(2);
+            }
+            16% { 
+                transform: scale(1.2) rotate(10deg);
+                filter: hue-rotate(60deg) brightness(2) saturate(3);
+            }
+            33% { 
+                transform: scale(0.8) rotate(-10deg);
+                filter: hue-rotate(120deg) brightness(1.5) saturate(2.5);
+            }
+            50% { 
+                transform: scale(1.15) rotate(5deg);
+                filter: hue-rotate(180deg) brightness(2.2) saturate(3.5);
+            }
+            66% { 
+                transform: scale(0.85) rotate(-5deg);
+                filter: hue-rotate(240deg) brightness(1.8) saturate(2.8);
+            }
+            83% { 
+                transform: scale(1.1) rotate(8deg);
+                filter: hue-rotate(300deg) brightness(2.5) saturate(4);
+            }
+            100% { 
+                transform: scale(1) rotate(0deg);
+                filter: hue-rotate(360deg) brightness(1) saturate(2);
+            }
+        }
+
+        .clicker-button:hover {
+            transform: scale(1.3);
+        }
+
+        .clicker-button:active {
+            transform: scale(0.7);
+        }
+
+        .news-ticker {
+            background: linear-gradient(90deg, #ff4500, #dc143c);
+            color: white;
+            padding: 0.5rem;
+            margin-bottom: 2rem;
+            overflow: hidden;
+            border: 4px solid #ffd700;
+            animation: tickerBackground 0.05s infinite;
+        }
+
+        @keyframes tickerBackground {
+            0% { 
+                background: linear-gradient(90deg, #ff4500, #dc143c);
+                transform: scale(1);
+            }
+            25% { 
+                background: linear-gradient(90deg, #00ff00, #0000ff);
+                transform: scale(1.02);
+            }
+            50% { 
+                background: linear-gradient(90deg, #ffff00, #ff00ff);
+                transform: scale(0.98);
+            }
+            75% { 
+                background: linear-gradient(90deg, #00ffff, #ff0000);
+                transform: scale(1.01);
+            }
+            100% { 
+                background: linear-gradient(90deg, #ff4500, #dc143c);
+                transform: scale(1);
+            }
+        }
+
+        .ticker-text {
+            white-space: nowrap;
+            font-size: 1.125rem;
+            font-weight: bold;
+            animation: tickerScroll 6s linear infinite, tickerColor 0.03s infinite;
+        }
+
+        @keyframes tickerScroll {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+
+        @keyframes tickerColor {
+            0% { color: #ffffff; }
+            16% { color: #ffff00; }
+            33% { color: #ff0000; }
+            50% { color: #00ff00; }
+            66% { color: #00ffff; }
+            83% { color: #ff00ff; }
+            100% { color: #ffffff; }
+        }
+
+        .game-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            max-width: 112rem;
+            margin: 0 auto;
+        }
+
+        @media (min-width: 768px) {
+            .game-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .stats-card {
+            transform: rotate(1deg);
+        }
+
+        .upgrades-card {
+            background: linear-gradient(135deg, #ff1493, #dc143c);
+            transform: rotate(-1deg);
+            animation: upgradesCardChaos 0.08s infinite;
+        }
+
+        @keyframes upgradesCardChaos {
+            0% { 
+                transform: rotate(-1deg) scale(1);
+                filter: hue-rotate(0deg) brightness(1);
+            }
+            33% { 
+                transform: rotate(1deg) scale(1.01);
+                filter: hue-rotate(120deg) brightness(1.2);
+            }
+            66% { 
+                transform: rotate(-1.5deg) scale(0.99);
+                filter: hue-rotate(240deg) brightness(1.1);
+            }
+            100% { 
+                transform: rotate(0.5deg) scale(1.02);
+                filter: hue-rotate(360deg) brightness(1);
+            }
+        }
+
+        .upgrade-item {
+            background: #333;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            border: 4px solid #9932cc;
+            margin-bottom: 1rem;
+            animation: upgradeItemGlow 0.2s infinite;
+        }
+
+        @keyframes upgradeItemGlow {
+            0% { filter: hue-rotate(0deg) brightness(1); }
+            33% { filter: hue-rotate(120deg) brightness(1.2); }
+            66% { filter: hue-rotate(240deg) brightness(1.1); }
+            100% { filter: hue-rotate(360deg) brightness(1); }
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        .footer-text {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            animation: footerChaos 0.1s infinite;
+        }
+
+        @keyframes footerChaos {
+            0% { 
+                transform: scale(1);
+                color: #ffffff;
+            }
+            20% { 
+                transform: scale(1.2);
+                color: #ff0000;
+            }
+            40% { 
+                transform: scale(0.9);
+                color: #00ff00;
+            }
+            60% { 
+                transform: scale(1.1);
+                color: #0000ff;
+            }
+            80% { 
+                transform: scale(1);
+                color: #ffff00;
+            }
+            100% { 
+                transform: scale(1);
+                color: #ff00ff;
+            }
+        }
+
+        .text-center { text-align: center; }
+        .text-sm { font-size: 0.875rem; }
+        .text-xs { font-size: 0.75rem; }
+        .text-lg { font-size: 1.125rem; }
+        .text-xl { font-size: 1.25rem; }
+        .text-2xl { font-size: 1.5rem; }
+        .text-3xl { font-size: 1.875rem; }
+        .mb-2 { margin-bottom: 0.5rem; }
+        .mb-4 { margin-bottom: 1rem; }
+        .mb-6 { margin-bottom: 1.5rem; }
+        .mt-1 { margin-top: 0.25rem; }
+        .mt-2 { margin-top: 0.5rem; }
+        .flex { display: flex; }
+        .items-center { align-items: center; }
+        .justify-center { justify-content: center; }
+        .justify-between { justify-content: space-between; }
+        .gap-1 { gap: 0.25rem; }
+        .gap-2 { gap: 0.5rem; }
+        .flex-1 { flex: 1; }
+        .ml-4 { margin-left: 1rem; }
+    </style>
+</head>
+<body>
+    <div class="background"></div>
+    <div class="strobe-overlay"></div>
+    <div class="grid-overlay"></div>
+
+    <!-- Floating Emojis -->
+    <div id="floating-emojis"></div>
+
+    <div class="content">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-icons">
+                <div class="icon">🔥</div>
+                <div class="icon">⚡</div>
+                <div class="icon">🍗</div>
+            </div>
+
+            <h1 class="main-title">EPIC CHICKEN BUTT CLICKER</h1>
+
+            <p class="subtitle">🐵 EPIK GAME BY TGA MONKE VR - TMTIME!1!1!1!1!1!1 🐵</p>
+
+            <div class="badges">
+                <div class="badge">ULTRA MEGA EDITION</div>
+                <div class="badge">100% REAL BUTTS</div>
+                <div class="badge">PREMIUM</div>
+                <div class="badge">AS SEEN ON TV!</div>
+            </div>
+        </div>
+
+        <!-- RAM Download Section -->
+        <div class="card ram-card">
+            <div class="text-center">
+                <div class="flex items-center justify-center gap-2 mb-4">
+                    <span class="text-2xl">💻</span>
+                    <h2 class="text-2xl">DOWNLOAD MORE RAM - TOTALLY LEGIT!</h2>
+                    <span class="text-2xl">⬇️</span>
+                </div>
+
+                <p class="text-lg mb-4">
+                    Current RAM: <span id="total-ram">8</span>GB | Status: <span id="ram-status">READY TO DOWNLOAD</span>
+                </p>
+
+                <div id="ram-progress-container" style="display: none;" class="mb-4">
+                    <div class="progress-bar">
+                        <div id="ram-progress-fill" class="progress-fill"></div>
+                    </div>
+                    <p class="text-sm" id="ram-progress-text">Downloading RAM... 0% - Totally not a scam!</p>
+                </div>
+
+                <button id="download-ram-btn" class="button">DOWNLOAD 8GB RAM FREE!</button>
+            </div>
+        </div>
+
+        <!-- News Ticker -->
+        <div class="news-ticker">
+            <div class="ticker-text">
+                🚨 BREAKING NEWS: LOCAL CHICKEN BUTTS ACHIEVE SENTIENCE!!! SCIENTISTS BAFFLED!!! CLICK NOW FOR EPIC REWARDS!!! 🚨
+            </div>
+        </div>
+
+        <!-- Main Game Area -->
+        <div class="game-grid">
+            <!-- Stats Panel -->
+            <div class="card stats-card">
+                <div class="text-center">
+                    <div class="flex items-center justify-center gap-2 mb-4">
+                        <span class="text-2xl">💰</span>
+                        <h2 class="text-3xl">TOTAL BUTTS: <span id="total-butts">0</span></h2>
+                        <span class="text-2xl">💰</span>
+                    </div>
+
+                    <div class="flex items-center justify-center gap-2 mb-4">
+                        <span class="text-xl">⚡</span>
+                        <span class="text-xl">🔥</span>
+                        <span class="text-xl" style="color: #32cd32;"><span id="butts-per-second">1</span> BUTTS PER SECOND</span>
+                        <span class="text-xl">🔥</span>
+                        <span class="text-xl">⚡</span>
+                    </div>
+
+                    <div class="flex items-center justify-center gap-2 mb-6">
+                        <span class="text-xl">⭐</span>
+                        <span class="text-xl" style="color: #ffd700;">⚡ CLICK POWER: <span id="click-power">1</span> ⚡</span>
+                        <span class="text-xl">⭐</span>
+                    </div>
+
+                    <div class="mb-6">
+                        <span class="text-2xl" style="color: #32cd32;">💰 $<span id="money">0</span> 💰</span>
+                    </div>
+
+                    <!-- Giant Chicken Butt Clicker Button -->
+                    <div class="clicker-button" id="clicker-button">
+                        <div style="font-size: 4rem; margin-bottom: 0.5rem;">🍗</div>
+                        <div style="font-size: 1.125rem; font-weight: bold;">CLICK BUTT!</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Upgrades Panel -->
+            <div class="card upgrades-card">
+                <div class="text-center mb-6">
+                    <div class="flex items-center justify-center gap-2">
+                        <span class="text-2xl">🚀</span>
+                        <h2 class="text-3xl">EPIC UPGRADES</h2>
+                        <span class="text-2xl">🚀</span>
+                    </div>
+                </div>
+
+                <div id="upgrades-container">
+                    <div class="upgrade-item">
+                        <div class="flex justify-between items-start mb-2">
+                            <div class="flex-1">
+                                <h3 class="text-sm" style="color: #00ffff; font-weight: bold;">AUTO BUTT CLICKER 3000!!!</h3>
+                                <p class="text-xs mt-1" style="color: #ccc;">CLICKS BUTTS AUTOMATICALLY!!! NO SKILL!!!</p>
+                                <div class="flex items-center gap-1 mt-2">
+                                    <span class="text-xs" style="color: #32cd32;">+25 BPS ⚡</span>
+                                    <span class="text-xs" style="color: #ffd700;">Cost: $100</span>
+                                </div>
+                            </div>
+                            <div class="ml-4">
+                                <button class="button upgrade-btn" style="padding: 0.5rem 1rem; font-size: 0.875rem;" data-cost="100" data-bps="25">TOO POOR!!!</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="upgrade-item">
+                        <div class="flex justify-between items-start mb-2">
+                            <div class="flex-1">
+                                <h3 class="text-sm" style="color: #00ffff; font-weight: bold;">MEGA BUTT DELUXE EDITION PRO MAX</h3>
+                                <p class="text-xs mt-1" style="color: #ccc;">BIGGER BUTTS = MORE POWER!!! MAKE THIS EPIC!!!</p>
+                                <div class="flex items-center gap-1 mt-2">
+                                    <span class="text-xs" style="color: #32cd32;">+100 BPS ⚡</span>
+                                    <span class="text-xs" style="color: #ffd700;">Cost: $500</span>
+                                </div>
+                            </div>
+                            <div class="ml-4">
+                                <button class="button upgrade-btn" style="padding: 0.5rem 1rem; font-size: 0.875rem;" data-cost="500" data-bps="100">TOO POOR!!!</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="upgrade-item">
+                        <div class="flex justify-between items-start mb-2">
+                            <div class="flex-1">
+                                <h3 class="text-sm" style="color: #00ffff; font-weight: bold;">INDUSTRIAL BUTT FACTORY 9000</h3>
+                                <p class="text-xs mt-1" style="color: #ccc;">MASS PRODUCTION OF BUTTS!!! AS SEEN ON TV!!!</p>
+                                <div class="flex items-center gap-1 mt-2">
+                                    <span class="text-xs" style="color: #32cd32;">+500 BPS ⚡</span>
+                                    <span class="text-xs" style="color: #ffd700;">Cost: $2500</span>
+                                </div>
+                            </div>
+                            <div class="ml-4">
+                                <button class="button upgrade-btn" style="padding: 0.5rem 1rem; font-size: 0.875rem;" data-cost="2500" data-bps="500">TOO POOR!!!</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p class="footer-text">🎮 BECOME THE ULTIMATE CHICKEN BUTT MASTER!!! 🎮</p>
+        </div>
+    </div>
+
+    <script>
+        // Game State
+        let gameState = {
+            totalButts: 0,
+            buttsPerSecond: 1,
+            clickPower: 1,
+            money: 0,
+            totalRam: 8,
+            isDownloadingRam: false,
+            ramProgress: 0,
+            upgrades: [
+                { name: 'AUTO BUTT CLICKER 3000!!!', cost: 100, bps: 25, owned: 0 },
+                { name: 'MEGA BUTT DELUXE EDITION PRO MAX', cost: 500, bps: 100, owned: 0 },
+                { name: 'INDUSTRIAL BUTT FACTORY 9000', cost: 2500, bps: 500, owned: 0 }
+            ]
+        };
+
+        // DOM Elements
+        const totalButtsEl = document.getElementById('total-butts');
+        const buttsPerSecondEl = document.getElementById('butts-per-second');
+        const clickPowerEl = document.getElementById('click-power');
+        const moneyEl = document.getElementById('money');
+        const clickerButton = document.getElementById('clicker-button');
+        const totalRamEl = document.getElementById('total-ram');
+        const ramStatusEl = document.getElementById('ram-status');
+        const downloadRamBtn = document.getElementById('download-ram-btn');
+        const ramProgressContainer = document.getElementById('ram-progress-container');
+        const ramProgressFill = document.getElementById('ram-progress-fill');
+        const ramProgressText = document.getElementById('ram-progress-text');
+        const upgradeButtons = document.querySelectorAll('.upgrade-btn');
+
+        // Create floating emojis
+        function createFloatingEmojis() {
+            const emojis = ['🔥', '💥', '⚡', '🚀', '💎', '⭐', '🎯', '🍗', '🎮', '🌟', '🌿', '🥤'];
+            const container = document.getElementById('floating-emojis');
+            
+            for (let i = 0; i < 12; i++) {
+                const emoji = document.createElement('div');
+                emoji.className = 'floating-emoji';
+                emoji.textContent = emojis[i % emojis.length];
+                emoji.style.left = Math.random() * window.innerWidth + 'px';
+                emoji.style.top = Math.random() * window.innerHeight + 'px';
+                emoji.style.animationDelay = Math.random() * 2 + 's';
+                container.appendChild(emoji);
+
+                // Move emojis randomly
+                setInterval(() => {
+                    emoji.style.left = Math.random() * window.innerWidth + 'px';
+                    emoji.style.top = Math.random() * window.innerHeight + 'px';
+                }, 2000 + Math.random() * 3000);
+            }
+        }
+
+        // Calculate total BPS from upgrades
+        function calculateTotalBPS() {
+            let totalBPS = 1; // Base BPS
+            gameState.upgrades.forEach(upgrade => {
+                totalBPS += upgrade.owned * upgrade.bps;
+            });
+            return totalBPS;
+        }
+
+        // Update UI
+        function updateUI() {
+            totalButtsEl.textContent = gameState.totalButts;
+            gameState.buttsPerSecond = calculateTotalBPS();
+            buttsPerSecondEl.textContent = gameState.buttsPerSecond;
+            clickPowerEl.textContent = gameState.clickPower;
+            moneyEl.textContent = gameState.money;
+            totalRamEl.textContent = gameState.totalRam;
+
+            // Update upgrade buttons
+            upgradeButtons.forEach((button, index) => {
+                const upgrade = gameState.upgrades[index];
+                const cost = upgrade.cost * Math.pow(1.15, upgrade.owned); // Increase cost with each purchase
+                
+                if (gameState.money >= cost) {
+                    button.textContent = `Buy (${upgrade.owned}) - $${Math.floor(cost)}`;
+                    button.disabled = false;
+                } else {
+                    button.textContent = 'TOO POOR!!!';
+                    button.disabled = true;
+                }
+                
+                // Update cost display in the upgrade info
+                const costSpan = button.closest('.upgrade-item').querySelector('.text-xs:last-child');
+                costSpan.textContent = `Cost: $${Math.floor(cost)}`;
+            });
+        }
+
+        // Handle clicking
+        clickerButton.addEventListener('click', () => {
+            gameState.totalButts += gameState.clickPower;
+            gameState.money += gameState.clickPower * 10;
+            updateUI();
+        });
+
+        // Handle upgrade purchases
+        upgradeButtons.forEach((button, index) => {
+            button.addEventListener('click', () => {
+                const upgrade = gameState.upgrades[index];
+                const cost = upgrade.cost * Math.pow(1.15, upgrade.owned);
+                
+                if (gameState.money >= cost) {
+                    gameState.money -= cost;
+                    upgrade.owned++;
+                    updateUI();
+                }
+            });
+        });
+
+        // Handle RAM downloading
+        downloadRamBtn.addEventListener('click', () => {
+            if (!gameState.isDownloadingRam) {
+                gameState.isDownloadingRam = true;
+                gameState.ramProgress = 0;
+                ramStatusEl.textContent = 'DOWNLOADING...';
+                downloadRamBtn.textContent = 'DOWNLOADING...';
+                downloadRamBtn.disabled = true;
+                ramProgressContainer.style.display = 'block';
+            }
+        });
+
+        // RAM download progress
+        setInterval(() => {
+            if (gameState.isDownloadingRam && gameState.ramProgress < 100) {
+                gameState.ramProgress += Math.random() * 3;
+                if (gameState.ramProgress >= 100) {
+                    gameState.ramProgress = 100;
+                    gameState.isDownloadingRam = false;
+                    gameState.totalRam += 8;
+                    ramStatusEl.textContent = 'READY TO DOWNLOAD';
+                    downloadRamBtn.textContent = 'DOWNLOAD 8GB RAM FREE!';
+                    downloadRamBtn.disabled = false;
+                    ramProgressContainer.style.display = 'none';
+                    updateUI();
+                }
+                ramProgressFill.style.width = gameState.ramProgress + '%';
+                ramProgressText.textContent = `Downloading RAM... ${Math.floor(gameState.ramProgress)}% - Totally not a scam!`;
+            }
+        }, 50);
+
+        // Game loop - butts per second
+        setInterval(() => {
+            gameState.totalButts += gameState.buttsPerSecond;
+            gameState.money += gameState.buttsPerSecond * 10;
+            updateUI();
+        }, 1000);
+
+        // Initialize
+        createFloatingEmojis();
+        updateUI();
+
+        // Handle window resize for floating emojis
+        window.addEventListener('resize', () => {
+            const emojis = document.querySelectorAll('.floating-emoji');
+            emojis.forEach(emoji => {
+                emoji.style.left = Math.random() * window.innerWidth + 'px';
+                emoji.style.top = Math.random() * window.innerHeight + 'px';
+            });
+        });
+    </script>
+</body>
+</html>
