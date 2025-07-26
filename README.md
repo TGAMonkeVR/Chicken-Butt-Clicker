@@ -1,4 +1,4 @@
-# Chicken-Butt-Clicker
+# Chicken-Butt-Clicker-Beta
 A VERY EPIK GAME ABOUT CLICKING CHICKEN BUTT!
 
 WARNING!
